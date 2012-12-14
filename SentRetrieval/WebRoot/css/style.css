@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+a {
+	color: #5585ff;
+}
+body {
+	text-align: center;
+	background: #f6f6ff;
+	color: #666;
+}
+.footer {
+	font-size: 13px;
+	font-family: "Microsoft YaHei";
+	margin-top: 30px;
+}
+.search {
+	margin: -20px auto 0 auto;
+
+}
+#searchWord {
+	height: 30px;
+	font-family: arial, sans-serif;
+	font-size: 19px;
+	border: 1px solid #ddd;
+	background: #fff;
+	direction: ltl;
+	unicode-bidi: embed;
+	float:left;
+	
+}
+.wrapper {
+	height: auto !important;
+	margin: 0 auto;
+	width: 800px;
+}
+
+.result {
+	text-align: left;
+	margin-top: 20px;
+	font-family: arial, sans-serif;
+	float : left;
+}
+.number{
+	text-align: right;
+}
+

@@ -1,0 +1,135 @@
+package bean;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+import tools.LoadDictionary;
+import tools.WordProPair;
+import word.segment.PathLabel;
+
+public class ChiConvertToEngBean {
+	public static Map<String,ArrayList<WordProPair>> CEDictionary ;
+	public static Map<String,ArrayList<WordProPair>> ECDictionary ;
+	public static Map<String,ArrayList<WordProPair>> PhraseDictionary;
+	private static boolean isInited = false;
+	private static Decoder decoder;
+	public static void main(String[] args){
+		ChiConvertToEngBean bean = new ChiConvertToEngBean();
+		bean.init("D://Workspaces/SentRetrieval/configFile.conf");
+		String a = "张灼华 还 强调 了 在 港 推出 小型 （ 合格 境外 机构 投资者 ） 计划 的 重要性 。";
+		System.out.println("#"+ bean.convertToTargetSentUsePhrase(a));
+	}
+	public void init(String path){
+		if(!isInited){
+			ConfiFile.init(path);
+			PathLabel.init(path);
+			LoadDictionary loadDictionary = new LoadDictionary();
+			System.out.println("Loading dictionary......");
+			CEDictionary = loadDictionary.loadDictionary(ConfiFile.CEDictionary);
+			ECDictionary = loadDictionary.loadDictionary(ConfiFile.ECDictionary);
+			System.out.println("C/E and E/C Dictionary loaded!");
+			PhraseDictionary = loadDictionary.loadPhraseDictionary(ConfiFile.FINAL_PHRASE_TABLE);
+			
+			System.out.println("PhraseDictionary loaded!");
+			isInited = true;
+			decoder = new Decoder();
+		}
+	}
+	public ChiConvertToEngBean(){
+	}
+	
+	/*public double getEcpro(String engWord,String chiWord){
+		ArrayList<WordProPair> p = ECDictionary.get(engWord);
+		if(p == null)
+			return 0;
+		for(WordProPair w : p){
+			if(w.CorreWord.equals(chiWord))
+				return w.Prob;
+		}
+		return 0;
+	}
+	private String getMaxProCorrWord(String sourceWord){
+		if(sourceWord.matches(ConfiFile.CHINESE_PUNCTUATION))
+			return null;
+		double maxpro = 0;
+		String selectedTargetWord="";
+		ArrayList<WordProPair> list = CEDictionary.get(sourceWord);
+		if(list == null)
+			return null;
+		for(WordProPair p : list){	// 实现查找p(e|c)+p(c|e)最大的英文单词
+			double value;
+			if((value = p.Prob + getEcpro(p.CorreWord,sourceWord)) > maxpro){
+				maxpro = value;
+				selectedTargetWord = p.CorreWord;
+			}
+		}
+		return selectedTargetWord;
+		
+	}
+	
+	public String convertToTargetSentUsePhrase(String sourceSent){
+		if(CEDictionary!= null && ECDictionary!= null && PhraseDictionary != null){
+			String[] words = sourceSent.split(" ");
+			String transSent = "";
+			for(int i = 0  ; i < words.length; i++){
+				//System.out.println(i);
+				if(i < words.length -1){
+					String candiPhrase = words[i]+" "+words[i+1];
+					ArrayList<WordProPair> phraseList = PhraseDictionary.get(candiPhrase);
+					if(phraseList != null){
+						
+						transSent += phraseList.get(0).CorreWord+" ";
+						//System.out.println(i+" " +candiPhrase + " "+ phraseList.get(0).CorreWord);
+						i++;
+					}else{
+						phraseList = PhraseDictionary.get(words[i]);
+						if(phraseList != null){
+							transSent += phraseList.get(0).CorreWord+" ";
+							//System.out.println(i+" "+words[i] + " "+ phraseList.get(0).CorreWord);
+						}else{
+							String selectedWord = getMaxProCorrWord(words[i]);
+							if(selectedWord != null){
+								transSent += selectedWord+" ";
+								//System.out.println(i+" "+words[i]+ " "+selectedWord );
+							}
+						}
+					}
+				}else{ //the lastword
+					String selectedWord = getMaxProCorrWord(words[i]);
+					if(selectedWord != null){
+						transSent += selectedWord+" ";
+						//System.out.println(i+" "+words[i]+" "+selectedWord +" "+ i);
+					}
+				}
+				
+			}
+			return transSent;
+		}else
+			return null;
+	}
+	
+	public String convertToTargetSent(String sourceSent){
+		if(CEDictionary!= null && ECDictionary!= null){
+			String[] words = sourceSent.split(" ");
+			String transSent = "";
+			for(String word: words){
+				String selectedTargetWord = getMaxProCorrWord(word);
+				if(selectedTargetWord!= null)
+					transSent += selectedTargetWord+" ";
+			}
+			return transSent;
+		}else
+			return null;
+	}*/
+	public String convertToTargetSentUsePhrase(String sourceSent){
+		String str = decoder.decode(sourceSent);
+		System.out.println(str);
+		return str;
+	}
+	
+	public String convertToTargetSent(String sourceSent){
+		String str = decoder.decode(sourceSent);
+		System.out.println(str);
+		return str;
+	}
+}

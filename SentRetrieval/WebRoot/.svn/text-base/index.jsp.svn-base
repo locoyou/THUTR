@@ -1,0 +1,73 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.io.*"%>
+<jsp:useBean id ="convertBean" scope="application" class="bean.ChiConvertToEngBean"/>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+System.out.println(basePath);
+convertBean.init(new File("."+ File.separator + "webapps" + File.separator + "SentRetrieval").getAbsolutePath());
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    <script>
+	function checkForm(){
+		if(searchWord=="")
+			return false;
+		else
+			return true;
+	}
+	</script>
+    <title>Sentence Search Page</title>
+    <link rel=stylesheet type="text/css" href="css/style.css" />
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+  </head>
+  
+  <body>
+    <br>
+    <br>
+    <div class="wrapper"><div align="center"> 
+		</div><h1 id="title" align="center">Translation Retrieval</h1>
+		<br>
+		<br>
+		<div class="search">
+			<form method=post onsubmit="return checkForm();" action ="search.jsp">
+				<table style="margin: 0 auto;">
+					<tbody>
+						<tr>
+							<td><input name=searchWord id=searchWord type=text
+								maxlength="1024" size="70"/>
+							</td>
+							<td><input id=doSearch type=submit value="搜索"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+	
+	<div class="footer">
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<center>
+			<span> &copy; 2011－2012 thunlp, all rights reserved. <a
+				href="http://nlp.csai.tsinghua.edu.cn/" target="_blank">清华大学自然语言处理组</a>
+			</span>
+		</center>
+	</div>
+  </body>
+</html>

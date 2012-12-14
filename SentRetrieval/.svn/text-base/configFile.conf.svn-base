@@ -1,0 +1,8 @@
+﻿-FTChinaMakeIndexSource ><E://data/SentenceRetrieval/makeIndexSource/EngSent.txt
+-FTChinaSentIndexDir ><E://data/SentenceRetrieval/sentIndex/
+-SentForTestPath ><E://data/SentenceRetrieval/test/
+-CEDictionary ><E://data/SentenceRetrieval/dictionary/chinese_english.dict
+-ECDictionary ><E://data/SentenceRetrieval/dictionary/english_chinese.dict
+-WordSegmentModel ><E://data/SentenceRetrieval/wordSegmentModel/
+-OrigPhraseTable ><E://data/SentenceRetrieval/phraseTable/515Ksent-maxlen2-phrase.txt
+-FINAL_PHRASE_TABLE ><E://data/SentenceRetrieval/phraseTable/515ksent-maxlen2-final-Phrase.txt

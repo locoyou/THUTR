@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="SentRetrieval"
+  id="myeclipse.1330243812239"
+  context-root="/SentRetrieval"
+  j2ee-spec="5.0"
+  archive="SentRetrieval.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+

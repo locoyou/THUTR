@@ -1,0 +1,60 @@
+package bean;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
+//import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Version;
+import org.thunlp.io.TextFileReader;
+
+public class MakeSentIndex {
+	public static void main(String[] string){
+		MakeSentIndex ms = new MakeSentIndex();
+		try {
+			ms.createIndex();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public boolean createIndex() throws IOException{
+		String dataDir = ConfiFile.FTChinaMakeIndexSource;
+		File dir = new File(dataDir);
+		if (!dir.exists())
+		{
+			System.out.println("data Dir does not exists!");
+			return false;
+		}		
+		Directory fsDirectory = FSDirectory.open(new File (ConfiFile.FTChinaSentIndexDir));
+		IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_36,
+				new EnglishAnalyzer(Version.LUCENE_36));
+		IndexWriter indexWriter = new IndexWriter(fsDirectory,iwc);
+		//File[] files = dir.listFiles();
+		
+		TextFileReader tr = new TextFileReader(dataDir);
+		String line = tr.readLine();
+		int i = 1;
+		while(line != null){
+			Document document = new Document();
+			document.add(new Field("content", line,Field.Store.YES,Field.Index.ANALYZED));
+			document.add(new Field("index",new Integer(i).toString(),Field.Store.YES,Field.Index.NOT_ANALYZED));
+			indexWriter.addDocument(document);
+			if((i-1) % 100 == 0)
+				System.out.println("indexing" + i +"th Sentences");
+			line = tr.readLine();
+			i++;
+		}
+		tr.close();
+		//indexWriter.optimize();
+		indexWriter.close();
+		return true;
+	}
+}

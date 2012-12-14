@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese
+END
+ChineseLanguageConstants.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/ChineseLanguageConstants.java
+END
+BigramWordSegment.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/BigramWordSegment.java
+END
+ContentFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/ContentFilter.java
+END
+lexicon.model
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/lexicon.model
+END
+IctclasWordSegment.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/IctclasWordSegment.java
+END
+stopwords.cn.txt
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/stopwords.cn.txt
+END
+LangUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/LangUtils.java
+END
+NaiveBigramWordSegment.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/NaiveBigramWordSegment.java
+END
+Stopwords.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/Stopwords.java
+END
+CRFWordSegment.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/CRFWordSegment.java
+END
+ForwardMaxWordSegment.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/ForwardMaxWordSegment.java
+END
+WordSegment.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/org/thunlp/language/chinese/WordSegment.java
+END

@@ -1,0 +1,108 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.lang.*"%>
+<%@ page import="bean.SearchResult" %>
+<jsp:useBean id="bean" scope="application" class="bean.SearchBean"/>
+<jsp:useBean id ="convertBean" scope="application" class="bean.ChiConvertToEngBean"/>
+<jsp:useBean id ="wordSegment" scope="application" class="word.segment.PathLabel"/>
+<%request.setCharacterEncoding("UTF-8"); %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
+	String searchWord = request.getParameter("searchWord");
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    <link rel=stylesheet type="text/css" href="css/style.css" />
+    <title> Search page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+
+  </head>
+   	
+  <body>
+     <br>
+     <br>
+     <div class="wrapper">
+         
+     	 <h1 id="title" align="left"> Translation Retrieval<br> </h1>
+    	 <br>
+			<form method=post action ="search.jsp">
+				<table>
+						<tr>
+							<td>
+							<input name=searchWord id=searchWord type=text  
+								maxlength="1024" value="<%=searchWord%>" style="width:730px;"/>
+							</td>
+							<td><input id=doSearch type=submit value="搜索"/>
+							</td>
+						</tr>
+					
+				</table>
+			</form>
+     		<form >
+     			<table class="result" >
+     				<tbody>
+     				<%
+					if(searchWord.length() != 0){
+						wordSegment.setSentence(searchWord);
+						String newsearchWord = wordSegment.tokenization();
+						String[] chiwords = newsearchWord.split(" ");
+						newsearchWord = "";
+						for(String chiword : chiwords){
+							if(chiword.indexOf("/") >= 0){
+								String s = chiword.substring(0,chiword.indexOf("/"));
+								if(s!= null)
+									newsearchWord += s+" ";
+							}
+						}
+						System.out.println(newsearchWord);
+						//String engSearchWord = convertBean.convertToTargetSent(newsearchWord);
+						String engSearchWord = convertBean.convertToTargetSentUsePhrase(newsearchWord);
+						System.out.println(engSearchWord);
+						if(engSearchWord!= null){
+							ArrayList<SearchResult> result = bean.getEntireResult(engSearchWord);
+							if(result != null){
+								for(int i = 0;i< result.size();i++){
+									%>
+									<tr><td class="title" <p><%=i+1 +":"+result.get(i).getSent()%></p></td></tr>
+									<%		
+			  		 			}
+		    				}else{
+								%>
+		    					<tr><td class="title" <p>No Result</p></td></tr>
+								<%
+		   					}
+		  				}
+					}
+					%>
+					</tbody>
+				</table>		
+ 			</form>
+ 	  	<div style="clear:both"></div>
+    </div>
+ 	<div class="footer">
+ 		<br>
+		<br>
+		<br>
+		<center>
+			<span> © 2011－2012 thunlp, all rights reserved. <a
+				href="http://nlp.csai.tsinghua.edu.cn/" target="_blank">清华大学自然语言处理组</a>
+			</span>
+		</center>
+	</div>
+  </body>
+</html>

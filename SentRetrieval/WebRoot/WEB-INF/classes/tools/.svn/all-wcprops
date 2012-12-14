@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/tools
+END
+PhraseTableGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/tools/PhraseTableGenerator.java
+END
+ChiEngDicGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/tools/ChiEngDicGenerator.java
+END
+EngChiDicGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/tools/EngChiDicGenerator.java
+END
+WordProComparator.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/tools/WordProComparator.java
+END
+LoadDictionary.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/tools/LoadDictionary.java
+END
+SentProcess.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/tools/SentProcess.java
+END
+WordProPair.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/tools/WordProPair.java
+END

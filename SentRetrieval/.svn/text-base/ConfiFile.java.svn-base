@@ -1,0 +1,67 @@
+package bean;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.thunlp.io.TextFileReader;
+/**
+ *@author liuqi
+ *2012-2-17ÉÏÎç10:30:19
+ *
+ */
+public  class  ConfiFile{
+	
+	
+	public static String FTChinaMakeIndexSource = "E://data/SentenceRetrieval/makeIndexSource/EngSent.txt";
+		
+	public static String FTChinaSentIndexDir = "E://data/SentenceRetrieval/sentIndex/";
+	
+	public static String SentForTestPath = "E://data/SentenceRetrieval/test/";
+	
+	public static String CEDictionary = "E://data/SentenceRetrieval/dictionary/chinese_english.dict";
+	
+	public static String ECDictionary = "E://data/SentenceRetrieval/dictionary/english_chinese.dict";
+	
+	public static String WordSegmentModel ="E://data/SentenceRetrieval/wordSegmentModel/";
+	
+	public static String OrigPhraseTable = "E://data/SentenceRetrieval/phraseTable/515Ksent-maxlen2-phrase.txt";
+	
+	public static String FINAL_PHRASE_TABLE = "E://data/SentenceRetrieval/phraseTable/515ksent-maxlen2-final-Phrase.txt";
+	
+	public final static String CHINESE_PUNCTUATION = "[£¬|¡£|¡¢|£¿|£º|£»|£¡|¡®|¡±|¡°|¡¯|£¨|£©|¡¾|¡¿|¡¶|¡·|¡­|©¤©¤|?|+]+";
+	
+	public final static String ENGLISH_PUNCTUATION = "[\\p{Punct}]+";
+	
+	public final static String LUCENE_FILT_CHARACTOR = "[+|-||&|\\\\||!|(|)|{|}|\\[|\\]|^|~|*|?|:|]+";
+	
+	public static String PHRASE_TABLE_SEPERATOR_REG = " ==> ";
+	
+	public static String SORTED_PHRASE_TABLE_SEPARATOR =" #><# ";
+	
+	public static void init(String path){
+		try {
+			System.out.println(System.getProperty("user.dir"));
+			TextFileReader tr = new TextFileReader(path + File.separator + "configFile.conf");
+			ArrayList<String> confi = new  ArrayList<String>();
+			String line ;
+			while((line = tr.readLine())!= null){
+				confi.add(line.substring(line.indexOf("><")+2));
+				System.out.println(line.substring(line.indexOf("><")+2));
+			}
+			tr.close();
+			
+			ConfiFile.FTChinaMakeIndexSource = confi.get(0);
+			ConfiFile.FTChinaSentIndexDir = confi.get(1);
+			ConfiFile.SentForTestPath = confi.get(2);
+			ConfiFile.CEDictionary = confi.get(3);
+			ConfiFile.ECDictionary = confi.get(4);
+			ConfiFile.WordSegmentModel = confi.get(5);
+			ConfiFile.OrigPhraseTable = confi.get(6);
+			ConfiFile.FINAL_PHRASE_TABLE = confi.get(7);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
+}

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/bean
+END
+MakeSentIndex.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/bean/MakeSentIndex.java
+END
+Test.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/bean/Test.java
+END
+LanguageUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/bean/LanguageUtil.java
+END
+SearchResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/bean/SearchResult.java
+END
+ChiConvertToEngBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/bean/ChiConvertToEngBean.java
+END
+SplitEngChi.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/bean/SplitEngChi.java
+END
+SearchBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/bean/SearchBean.java
+END
+ConfiFile.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/5368/exp/lq/SentRetrieval/src/bean/ConfiFile.java
+END
