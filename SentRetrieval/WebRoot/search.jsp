@@ -145,6 +145,7 @@ convertBean.init(new File("."+ File.separator + "webapps" + File.separator + "TR
 							}
 						}
 						String engSearchWord = convertBean.convertToTargetSentUsePhrase(newsearchWord);
+						engSearchWord = "("+engSearchWord+") OR ("+ convertBean.convertToTargetUseDict(newsearchWord)+")";
 						if(engSearchWord!= null){
 							ArrayList<SearchResult> result = bean.getEntireResult(engSearchWord);
 							if(result != null){

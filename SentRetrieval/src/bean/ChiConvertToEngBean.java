@@ -66,11 +66,12 @@ public class ChiConvertToEngBean {
 	
 	public String convertToTargetSentUsePhrase(String sourceSent){
 		String str = decoder.decode(sourceSent);
-		String word = convertToTargetUseDict(sourceSent);
-		System.out.println(str);
-		return "("+str+") OR ("+word+")";
-		
+		//String word = convertToTargetUseDict(sourceSent);
+		//System.out.println(str);
+		//return "("+str+") OR ("+word+")";
+		return str;
 	}
+	
 	
 	public String convertToTargetSent(String sourceSent){
 		String str = decoder.decode(sourceSent);

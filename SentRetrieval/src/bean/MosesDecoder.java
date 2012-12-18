@@ -22,7 +22,7 @@ public class MosesDecoder {
 		try{
 			rt = Runtime.getRuntime();
 			//String runCmd = "/home/locoyou/mosesdecoder/bin/moses -f /home/locoyou/mosesdecoder/sample-models/phrase-model/moses.ini";
-			String runCmd = ConfiFile.Moses_bin + " -f " +ConfiFile.Moses_configure;
+			String runCmd = ConfiFile.Moses_bin + " -drop-unknown -f " +ConfiFile.Moses_configure;
 			info = info + runCmd;
 			//System.out.println(runCmd);
 			proc = rt.exec(runCmd);
