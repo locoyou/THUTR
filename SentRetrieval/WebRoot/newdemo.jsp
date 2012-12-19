@@ -20,7 +20,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 System.out.println(basePath);
 //convertBean.init(new File(".."+ File.separator + "webapps" + File.separator + "SentRetrieval" + File.separator + "configFile.conf").getAbsolutePath());
-//convertBean.init("D://Workspaces/SentRetrieval/configFile.conf");
+convertBean.init("D://Workspaces/SentRetrieval/configFile.conf");
 int totalPage = 0;
 %>
 
@@ -30,7 +30,7 @@ int totalPage = 0;
 div#container{width:100%}
 div#header {background-color:#99bbbb;text-align:center;}
 div#sourcesent {background-color:#ffff99;width:40%;float:left;}
-div#controlpanel {background-color:#EEEEEE;width:20%;float:left;}
+div#controlpanel {background-color:#EEEEEE;width:20%;float:left;text-align:center;}
 div#targetsent {background-color:#FFF;heigh:300px;width:40%;float:right;}
 
 div#sourcesenttail{background-color:#ffff99;;width:40%;float:left;}
@@ -94,6 +94,7 @@ function showTargetNextPage(signal){
     		document.getElementById("targetsentence").value = "";
     		document.getElementById("targetpageNumber").innerHTML = "第"+targetpagenumber+"页";
     		onresize(null);
+    		tdonclick2(null,0);
     	}
     }
     var totalPageNumber = parseInt(document.getElementById("totalTargetPageNumber").innerHTML,10);
@@ -241,15 +242,16 @@ function saveSubmitType( type){
 			xmlhttp.onreadystatechange=function()
   			{
   				if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    			{
-    				document.getElementById("targetSentTable").innerHTML=xmlhttp.responseText;
+    			{	
+    				var pagestring = xmlhttp.responseText;
+    				document.getElementById("targetSentTable").innerHTML= pagestring.substring(0,pagestring.length-2);
     				onresize(null);
     				tdonclick2(null,0);
     				document.getElementById("selectQueryIndex2").vaule =  queryindex;
     				document.getElementById("targetpageNumber").innerHTML = "第"+targetpagenumber+"页";
-    				var totalPageNumber = "<%=session.getAttribute("targetSentsNumber")%>";
-   					//var totalNumber = parseInt(totalPageNumber,10);
-   					document.getElementById("totalTargetPageNumber").innerHTML = 2;
+   					var totalPageNumber = pagestring.substring(pagestring.length-2);
+   					//alert("total page number "+ totalPageNumber);
+   					document.getElementById("totalTargetPageNumber").innerHTML = totalPageNumber;
     			}
   			}
   			//alert("querySent "+ querySent);
@@ -541,39 +543,25 @@ function tdonclick2(obj,index){
    	%>
    	<br>
    	<br>
-	<INPUT TYPE="submit" VALUE="上传文件" style="width: 80px" onclick="return validateUpload()" >
+	<INPUT TYPE="submit" VALUE="上传文件" style="width: 80px;margin:10px auto" onclick="return validateUpload()" >
   	</center>
   </FORM>
-  <FORM ACTION="newdemo.jsp" 	METHOD="post">
-  	<br>
-  	<center>
-  	
+ 
+		<center>
+  		<input id="querysentence" name="sentence" style="display:none;width:100%" />
+  	    <input id="targetsentence" name="targetsentence" style="display:none;width:100%"/>
+  		<input id="selectQueryIndex" name="selectedQueryIndex" style="display:none;width:100%"/> 
+  		<input id="selectTargetIndex" name="selectedTargetIndex" style="display:none;width:100%"/>
+  		<input id="selectQueryIndex2" name="selectedQueryIndex2" style="display:none;width:100%"/> 
+  		<INPUT id="submittype" name="submittype" style="display:none"/>
+  	    </center>
+  		<p><INPUT TYPE="button" VALUE="检索" style="width: 80px;margin:10px auto" onclick="saveSubmitType(2)" /></p>
+  		<p><INPUT TYPE="button" VALUE="保存" style="width: 80px; margin:10px auto" onclick="saveSubmitType(3)" /></p>
+  		
   
-  	<input id="querysentence" name="sentence" style="display;width:100%" />
-  	
-  	
-  	<input id="targetsentence" name="targetsentence" style="display;width:100%"/>
-  	
-  	
-  	
-  		<input id="selectQueryIndex" name="selectedQueryIndex" style="display:none;width:100%"> 
-  	
-  	
-  		<input id="selectTargetIndex" name="selectedTargetIndex" style="display:none;width:100%">
-  	
-  		<input id="selectQueryIndex2" name="selectedQueryIndex2" style="display:none;width:100%"> 
-   		<br>
-  		<INPUT TYPE="button" VALUE="检索"  style="width: 80px" onclick="saveSubmitType(2)">
-  		<INPUT id="submittype" name="submittype" style="display:none">
-  		<br>
-  		<br>
-  		<INPUT TYPE="button" VALUE="保存" style="width: 80px" onclick="saveSubmitType(3)">
-  	</center>
-  </FORM>
- <!-- <form ACTION="download.jsp" 	METHOD="post"> --> 
+
   <center>
-  	<br>
-  	<INPUT TYPE="submit" VALUE="下载" style="width: 80px" onclick="openDiv() ">
+  	<INPUT TYPE="submit" VALUE="下载" style="width: 80px;margin:10px auto" onclick="openDiv() "/>
   </center>
  
 </div>

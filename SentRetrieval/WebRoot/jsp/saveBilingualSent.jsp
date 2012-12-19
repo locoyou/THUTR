@@ -6,6 +6,7 @@
 <%
 	String serverFilePath = request.getSession().getServletContext().getRealPath("/");
 	
+	System.out.println("file path "+ serverFilePath);
 	String querySent  = (String) request.getParameter("querySent");
     querySent = URLDecoder.decode(querySent,"utf-8");
 	

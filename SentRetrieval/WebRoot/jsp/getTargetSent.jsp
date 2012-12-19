@@ -9,7 +9,7 @@
 <%   
       //out.print("<center><h2>Target Sentences</h2><br></center><table width=100% border=\"1\" id=\"targetSentTable\">");
       session.removeAttribute("targetSents");
-      session.removeAttribute("targetSentsNumber");
+     // session.removeAttribute("targetSentsNumber");
       String querySent  = (String) request.getParameter("querySent");
       querySent = URLDecoder.decode(querySent,"utf-8");
      // System.out.println(querySent);
@@ -31,7 +31,7 @@
 	  	ArrayList<SearchResult> result = bean.getEntireResult(engSearchWord);
 		if(result != null){
 			for(int i = 0;i< result.size();i++){
-				if(i > 39)
+				if(i > 49)
 					break;
 				
 				targetSents.add(result.get(i).getSent());
@@ -39,15 +39,19 @@
 				if(i > 20)
 					continue;
 				out.print("<tr   ><td onclick= \"tdonclick2(this,-1)\" >"+result.get(i).getSent()+"</td></tr>");
-		
+				
 			}
+		
+
+			//String[] s  = new String[targetSents.size()];
+			//targetSents.toArray(s);
 			session.setAttribute("targetSents",targetSents);
 			int temp = targetSents.size() / 20;
 			int totalpage = ((double) targetSents.size()/(double) 20) - temp > 0 ? temp+1: temp;
 			String number = ""+totalpage;
-			session.removeAttribute("targetSentsNumber");
-			System.out.println("retrieval total "+ targetSents.size() + "page "+ totalpage );
-			session.setAttribute("targetSentsNumber",number);
+			out.print(number);
+			System.out.println("retrieval total "+ targetSents.size() + " page "+ number );
+			//session.setAttribute("targetSentsNumber",number);
 		}else{
 			out.print("<tr><td >No Result</td></tr>");
 		}
