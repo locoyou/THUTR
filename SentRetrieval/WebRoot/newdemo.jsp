@@ -72,6 +72,38 @@ li {list-style:none;}
 <script type="text/javascript" language="javascript">
 var pagenumber = 1;
 var targetpagenumber = 1;
+
+function cleanSavedSentences(){
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+  	{// code for IE7+, Firefox, Chrome, Opera, Safari
+  		xmlhttp=new XMLHttpRequest();
+  	}
+	else
+  	{// code for IE6, IE5
+  		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  	}
+  	
+  	xmlhttp.onreadystatechange=function()
+  	{
+  		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    	{
+    		var result = xmlhttp.responseText;
+    		result = result.replace(/(^\s+)|(\s+$)/g,""); 
+    		if(result == "true"){
+    			alert("Have cleaned saved sentence pairs!");
+    		}
+    		if (result == "false"){
+    			alert("Failed to clean the saved sentence pairs!");
+    		}
+    		if (result == "noexist"){
+    			alert("File does not exist!");
+    		}
+    	}
+    }
+    xmlhttp.open("GET","jsp/cleanSavedSentences.jsp?timestamp="+new Date().getTime(),true);
+	xmlhttp.send();
+}
 function showTargetNextPage(signal){
 	var xmlhttp;
 	if (window.XMLHttpRequest)
@@ -82,6 +114,7 @@ function showTargetNextPage(signal){
   	{// code for IE6, IE5
   		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   	}
+  	
   	xmlhttp.onreadystatechange=function()
   	{
   		if (xmlhttp.readyState==4 && xmlhttp.status==200)
@@ -92,33 +125,33 @@ function showTargetNextPage(signal){
     		}
     		document.getElementById("targetSentTable").innerHTML=xmlhttp.responseText;
     		document.getElementById("targetsentence").value = "";
-    		document.getElementById("targetpageNumber").innerHTML = "第"+targetpagenumber+"页";
+    		document.getElementById("targetpageNumber").innerHTML = "Page "+targetpagenumber;
     		onresize(null);
     		tdonclick2(null,0);
     	}
     }
     var totalPageNumber = parseInt(document.getElementById("totalTargetPageNumber").innerHTML,10);
     if(signal == true && targetpagenumber == totalPageNumber){
-    	alert("已经是最后一页了");
+    	alert("The last page already!");
     	return;
     }
     if(signal)
     	targetpagenumber = targetpagenumber+1;
     else{
     	if(targetpagenumber-1 == 0){
-    		alert("已经是第一页了");
+    		alert("The first page already!");
     		return;
     	}
     	targetpagenumber = targetpagenumber-1;
     		
     }
-    
     xmlhttp.open("GET","jsp/showTargetPage.jsp?pageNum="+targetpagenumber,true);
 	xmlhttp.send();
+
 }
 function showNextPage(signal){
 	if(!document.getElementById("sourceSentTable").innerHTML.match("<td")){
-		alert("请先选择上传文件");
+		alert("Please choose file to upload");
 		return;
 	}
 	var xmlhttp;
@@ -139,7 +172,7 @@ function showNextPage(signal){
     			return;
     		}
     		document.getElementById("sourceSentTable").innerHTML=xmlhttp.responseText;
-    		document.getElementById("pageNumber").innerHTML = "第"+pagenumber+"页";
+    		document.getElementById("pageNumber").innerHTML = "Page "+pagenumber;
     		document.getElementById("targetSentTable").innerHTML="";
     		document.getElementById("querysentence").value = "";
     		document.getElementById("targetsentence").value = "";
@@ -149,14 +182,14 @@ function showNextPage(signal){
     }
     var totalPage = parseInt(document.getElementById("totalPageNumber").innerHTML,10);
     if(signal == true && pagenumber == totalPage){
-    	alert("已经是最后一页了");
+    	alert("The last page already!");
     	return;
     }
     if(signal)
     	pagenumber = pagenumber+1;
     else{
     	if(pagenumber-1 == 0){
-    		alert("已经是第一页了");
+    		alert("The first page already!");
     		return;
     	}
     	pagenumber = pagenumber-1;
@@ -178,11 +211,11 @@ function saveSubmitType( type){
 		var queryindex  = parseInt(document.getElementById("selectQueryIndex").value,10);
 		var targetindex = parseInt(document.getElementById("selectTargetIndex").value,10);
 		if(isNaN(queryindex) || isNaN(targetindex)){
-			alert("请同时选择要保存的源语言和目标语言句子");
+			alert("Please select source sentence and target sentence you want to save together!");
 			return ;
 		}
 		if(queryindex != parseInt(document.getElementById("selectQueryIndex2").value,10)){
-			alert("您当前选择的源语言句子并不是目标语言译文所对应的句子，请重新选择");
+			alert("The source sentence you choose now is not the corresponding one to the target sentence, choose again please!");
 			return ;
 		}
 		var xmlhttp;
@@ -224,7 +257,7 @@ function saveSubmitType( type){
 		targetpagenumber = 1;
 		var queryindex  = parseInt(document.getElementById("selectQueryIndex").value,10);
 		if(isNaN(queryindex)){
-			alert("请选择要检索的源语言句子");
+			alert("Please select target sentence you want to retrieval first!");
 			return ;
 		}else{
 			document.getElementById("selectQueryIndex2").value = queryindex;
@@ -235,7 +268,7 @@ function saveSubmitType( type){
   			{// code for IE7+, Firefox, Chrome, Opera, Safari
   				xmlhttp=new XMLHttpRequest();
   			}
-			else
+			else  if(window.ActiveXObject)
   			{// code for IE6, IE5
   				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   			}
@@ -244,11 +277,12 @@ function saveSubmitType( type){
   				if (xmlhttp.readyState==4 && xmlhttp.status==200)
     			{	
     				var pagestring = xmlhttp.responseText;
-    				document.getElementById("targetSentTable").innerHTML= pagestring.substring(0,pagestring.length-2);
+    				document.getElementById("targetSentTable").innerHTML = pagestring.substring(0,pagestring.length-2);
+    				
     				onresize(null);
     				tdonclick2(null,0);
     				document.getElementById("selectQueryIndex2").vaule =  queryindex;
-    				document.getElementById("targetpageNumber").innerHTML = "第"+targetpagenumber+"页";
+    				document.getElementById("targetpageNumber").innerHTML = "Page "+targetpagenumber;
    					var totalPageNumber = pagestring.substring(pagestring.length-2);
    					//alert("total page number "+ totalPageNumber);
    					document.getElementById("totalTargetPageNumber").innerHTML = totalPageNumber;
@@ -271,7 +305,7 @@ function validateUpload(){
 		return true;
 	}
 	else{
-		alert("请选择文件路径");
+		alert("Please assign the file to upload!");
 		return false;
 	}
 	
@@ -472,10 +506,12 @@ function tdonclick2(obj,index){
 
 <div id="sourcesenttail">
 <center>
-<a id="pageNumber"> 第1页</a>
-<a  class = "showpage" onclick="showNextPage(false)" ><font color=blue>上一页</font></a>
-<a  class = "showpage" onclick="showNextPage(true)"  ><font color=blue>下一页</font></a>
-<a>共</a><a id="totalPageNumber"><%=totalPage%></a><a>页</a>
+<a id="pageNumber">Page 1</a><a>&nbsp;</a>
+<a  class = "showpage" onclick="showNextPage(false)" ><font color=blue>Previous Page</font></a>
+<a>&nbsp;&nbsp;</a>
+<a  class = "showpage" onclick="showNextPage(true)"  ><font color=blue>Next Page</font></a>
+<a>&nbsp;</a>
+<a>Total </a><a id="totalPageNumber"><%=totalPage%></a><a> Page(s)</a>
 </center>
 </div>
 
@@ -488,10 +524,12 @@ function tdonclick2(obj,index){
 
 <div id="targetsenttail">
 <center>
-	<a id="targetpageNumber"> 第1页</a>
-	<a  class = "showpage" onclick="showTargetNextPage(false)" ><font color=blue>上一页</font></a>
-	<a  class = "showpage" onclick="showTargetNextPage(true)"  ><font color=blue>下一页</font></a>
-	<a>共</a><a id="totalTargetPageNumber">0</a><a>页</a>
+	<a id="targetpageNumber">Page 1</a><a>&nbsp;</a>
+	<a  class = "showpage" onclick="showTargetNextPage(false)" ><font color=blue>Previous Page</font></a>
+	<a>&nbsp;&nbsp;</a>
+	<a  class = "showpage" onclick="showTargetNextPage(true)"  ><font color=blue>Next Page</font></a>
+	<a>&nbsp;</a>
+	<a>Total </a><a id="totalTargetPageNumber">0</a><a> Page(s)</a>
 </center>
 </div>
 
@@ -543,7 +581,7 @@ function tdonclick2(obj,index){
    	%>
    	<br>
    	<br>
-	<INPUT TYPE="submit" VALUE="上传文件" style="width: 80px;margin:10px auto" onclick="return validateUpload()" >
+	<INPUT TYPE="submit" VALUE="Upload File" style="width: 80px;margin:10px auto" onclick="return validateUpload()" >
   	</center>
   </FORM>
  
@@ -555,13 +593,14 @@ function tdonclick2(obj,index){
   		<input id="selectQueryIndex2" name="selectedQueryIndex2" style="display:none;width:100%"/> 
   		<INPUT id="submittype" name="submittype" style="display:none"/>
   	    </center>
-  		<p><INPUT TYPE="button" VALUE="检索" style="width: 80px;margin:10px auto" onclick="saveSubmitType(2)" /></p>
-  		<p><INPUT TYPE="button" VALUE="保存" style="width: 80px; margin:10px auto" onclick="saveSubmitType(3)" /></p>
+  		<p><INPUT TYPE="button" VALUE="Retrieve" style="width: 80px;margin:10px auto" onclick="saveSubmitType(2)" /></p>
+  		<p><INPUT TYPE="button" VALUE="Save" style="width: 80px; margin:10px auto" onclick="saveSubmitType(3)" /></p>
   		
   
 
   <center>
-  	<INPUT TYPE="submit" VALUE="下载" style="width: 80px;margin:10px auto" onclick="openDiv() "/>
+  	<p><INPUT TYPE="submit" VALUE="Download" style="width: 80px;margin:10px auto" onclick="openDiv() "/></p>
+  	<p><input type="button" value="Clean" style="width: 80px;margin:10px auto" onclick="cleanSavedSentences()"/></p>
   </center>
  
 </div>
@@ -575,15 +614,15 @@ function tdonclick2(obj,index){
 
 
 <div id="divSCA" >
-		<div style="padding: 10px;background-color: #0296c4 ;height:40px;color: #FFFFFF;font-weight: bold;font-size: 15px;">信息提示</div> 
+		<div style="padding: 10px;background-color: #0296c4 ;height:40px;color: #FFFFFF;font-weight: bold;font-size: 15px;">Message</div> 
 		<div style="padding: 10px;font-size: 13px;">
-		    &nbsp;&nbsp;请点击以下链接下载
+		    &nbsp;&nbsp;Please click this download link:
 		    <center>
-		   <a href="jsp/download.jsp?fileDownload=<%=fileDownload%>">下载</a> 
+		   <a href="jsp/download.jsp?fileDownload=<%=fileDownload%>">Download</a> 
 			</center>
 		</div>
 		<div align="center" style="padding-top: 10px;">
-		   <input type="button" style="width: 50;height: 25px;" value="关 闭" onclick="closeDiv()">
+		   <input type="button" style="width: 50;height: 25px;" value="Close" onclick="closeDiv()">
 		</div>
 </div>
 
@@ -595,7 +634,7 @@ function tdonclick2(obj,index){
 		<br>
 		<center>
 			<span> &copy; 2011－2012 thunlp, all rights reserved. <a
-				href="http://nlp.csai.tsinghua.edu.cn/" target="_blank">清华大学自然语言处理组</a>
+				href="http://nlp.csai.tsinghua.edu.cn/" target="_blank">THUNLP , Tsinghua University</a>
 			</span>
 		</center>
 		<br>
