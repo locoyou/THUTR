@@ -72,7 +72,7 @@ convertBean.init(new File("."+ File.separator + "webapps" + File.separator + "TR
 							}else{
 							%>
 							<input name=searchWord id=searchWord type=text  
-								maxlength="1024" value="<%=searchWord%>" style="width:730px;"/>
+								maxlength="1024" value="<%String tmpWord = searchWord.replaceAll("\"","&#34");%><%=tmpWord%>" style="width:730px;"/>
 							<% 
 							}
 							%>

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.lucene.analysis.Analyzer;
 //import org.apache.lucene.analysis.SimpleAnalyzer;
@@ -29,9 +31,23 @@ import org.apache.lucene.util.Version;
 public class SearchBean {
 	public SearchBean(){
 	}
+	
+	public String transformSolrMetacharactor(String input){
+	    StringBuffer sb = new StringBuffer();
+	    String regex = "[+\\-&|!(){}\\[\\]^\"~*?:(\\)]";
+	    Pattern pattern = Pattern.compile(regex);
+	    Matcher matcher = pattern.matcher(input);
+	    while(matcher.find()){
+	        matcher.appendReplacement(sb, "\\\\"+matcher.group());
+	    }
+	    matcher.appendTail(sb);
+	    return sb.toString();
+	}
+	
 	public ArrayList<Integer> getIndexResult(String searchWord) {
 		try{
 			//SimpleAnalyzer sim = new SimpleAnalyzer();
+			searchWord = transformSolrMetacharactor(searchWord);
 			Analyzer analyzer = new EnglishAnalyzer(Version.LUCENE_36);
 			
 			
@@ -74,6 +90,7 @@ public class SearchBean {
 	}
 	public ArrayList<SearchResult> getEntireResult(String searchWord){
 		try{
+			searchWord = transformSolrMetacharactor(searchWord);
 			HashMap<String, Integer> resultSet = new HashMap<String, Integer>();
 			Analyzer analyzer = new EnglishAnalyzer(Version.LUCENE_36);
 			Directory fsDir = FSDirectory.open(new File(ConfiFile.FTSentIndexDir));
