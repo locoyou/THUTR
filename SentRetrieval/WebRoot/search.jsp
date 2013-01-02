@@ -115,7 +115,6 @@ convertBean.init(new File("."+ File.separator + "webapps" + File.separator + "TR
 						//String engSearchWord = convertBean.convertToTargetSent(newsearchWord);
 						String engSearchWord = convertBean.convertToTargetSentUsePhrase(newsearchWord);
 						//System.out.println(engSearchWord);
-						%><%="***"+newsearchWord+"***\n"+"***"+engSearchWord+"***"%><%
 						if(engSearchWord!= null){
 							ArrayList<SearchResult> result = bean.getEntireResult(engSearchWord);
 							if(result != null){
@@ -146,8 +145,7 @@ convertBean.init(new File("."+ File.separator + "webapps" + File.separator + "TR
 							}
 						}
 						String engSearchWord = convertBean.convertToTargetSentUsePhrase(newsearchWord);
-						%><%="***"+newsearchWord+"***\n"+"***"+engSearchWord+"***"%><%
-						engSearchWord = "("+engSearchWord+") OR ("+ convertBean.convertToTargetUseDict(newsearchWord)+")";
+						//engSearchWord = "("+engSearchWord+") OR ("+ convertBean.convertToTargetUseDict(newsearchWord)+")";
 						if(engSearchWord!= null){
 							ArrayList<SearchResult> result = bean.getEntireResult(engSearchWord);
 							if(result != null){
